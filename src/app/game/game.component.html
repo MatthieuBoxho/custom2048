@@ -1,3 +1,9 @@
 <p>
   game works!
 </p>
+
+<div *ngFor="let row of grid">
+  <span *ngFor="let cell of row">
+    {{cell.value}}
+  </span>
+</div>
