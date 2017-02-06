@@ -5,7 +5,7 @@ import { Tile } from '../classes/tile';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.sass']
+  styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
   grid: Tile[][];
@@ -43,7 +43,6 @@ export class GameComponent implements OnInit {
 
     this.getEmptyTiles();
     this.initTile();
-    console.log(this.grid[0]);
   }
 
   // Initialise Tile to 2

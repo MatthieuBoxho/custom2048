@@ -1,9 +1,7 @@
-<p>
-  game works!
-</p>
-
-<div *ngFor="let col of grid">
-  <span *ngFor="let cell of col">
-    {{cell.value}}
-  </span>
+<div class='game-container'>
+  <div class="row" *ngFor="let col of grid">
+    <div class="tile tile-{{tile.value}}" *ngFor="let tile of col">
+      <span [hidden]="tile.value == 0">{{tile.value}}</span>
+    </div>
+  </div>
 </div>
