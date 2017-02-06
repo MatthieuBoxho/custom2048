@@ -43,6 +43,7 @@ export class GameComponent implements OnInit {
 
     this.getEmptyTiles();
     this.initTile();
+    this.initTile();
   }
 
   // Initialise Tile to 2

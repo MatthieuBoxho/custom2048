@@ -12,7 +12,7 @@ export class Tile {
     }
 
     initTile() {
-        this.value = 2;
+        this.value = Math.random() < 0.9 ? 2 : 4;
     }
 
     resetTile() {
