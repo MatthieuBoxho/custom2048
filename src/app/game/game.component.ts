@@ -78,6 +78,7 @@ export class GameComponent implements OnInit {
   move(keyCode: number) {
     let moved = true;
     let successfulMove = false;
+    this.resetMove();
     while (moved) {
       moved = false;
       if (!successfulMove) {
@@ -88,6 +89,14 @@ export class GameComponent implements OnInit {
     }
     if (successfulMove) {
       this.initTile();
+    }
+  }
+
+  resetMove() {
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
+        this.grid[row][col].merged = false;
+      }
     }
   }
 
@@ -116,7 +125,8 @@ export class GameComponent implements OnInit {
             this.emptyTiles = this.emptyTiles.filter(function(el) {return el.value === 0; });
             moved = true;
             successfulMove = true;
-          } else if (this.grid[row][col].value === this.grid[row][col - 1].value) {
+          } else if (!this.grid[row][col].merged && !this.grid[row][col - 1].merged
+              && this.grid[row][col].value === this.grid[row][col - 1].value) {
             this.grid[row][col].levelUp();
             this.resetTile(this.grid[row][col - 1]);
             moved = true;
@@ -140,7 +150,8 @@ export class GameComponent implements OnInit {
             this.emptyTiles = this.emptyTiles.filter(function(el) {return el.value === 0; });
             moved = true;
             successfulMove = true;
-          } else if (this.grid[row][col].value === this.grid[row][col + 1].value) {
+          } else if (!this.grid[row][col].merged && !this.grid[row][col + 1].merged
+              && this.grid[row][col].value === this.grid[row][col + 1].value) {
             this.grid[row][col].levelUp();
             this.resetTile(this.grid[row][col + 1]);
             moved = true;
@@ -164,7 +175,8 @@ export class GameComponent implements OnInit {
             this.emptyTiles = this.emptyTiles.filter(function(el) {return el.value === 0; });
             moved = true;
             successfulMove = true;
-          } else if (this.grid[row][col].value === this.grid[row + 1][col].value) {
+          } else if (!this.grid[row][col].merged && !this.grid[row + 1][col].merged
+              && this.grid[row][col].value === this.grid[row + 1][col].value) {
             this.grid[row][col].levelUp();
             this.resetTile(this.grid[row + 1][col]);
             moved = true;
@@ -188,7 +200,8 @@ export class GameComponent implements OnInit {
             this.emptyTiles = this.emptyTiles.filter(function(el) {return el.value === 0; });
             moved = true;
             successfulMove = true;
-          } else if (this.grid[row][col].value === this.grid[row - 1][col].value) {
+          } else if (!this.grid[row][col].merged && !this.grid[row - 1][col].merged
+              && this.grid[row][col].value === this.grid[row - 1][col].value) {
             this.grid[row][col].levelUp();
             this.resetTile(this.grid[row - 1][col]);
             moved = true;
