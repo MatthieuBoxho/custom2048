@@ -1,4 +1,11 @@
+<div class="score-container">
+  {{score}}
+</div>
+
 <div class='game-container'>
+  <div class="gameover-overlay" [hidden]="!gameOver">
+    GAME OVER
+  </div>
   <div class="row" *ngFor="let col of grid">
     <div class="tile tile-{{tile.value}}" *ngFor="let tile of col">
       <span [hidden]="tile.value == 0">{{tile.value}}</span>

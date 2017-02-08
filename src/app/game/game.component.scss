@@ -1,38 +1,84 @@
 @import "../app.component.scss";
 
-.game-container {
-    margin-top: $game-container-margin-top;
-    position: relative;
-    padding: $grid-spacing;
-    background: $game-container-background;
+.score-container {
+  $height: 25px;
+
+  width: 60px;
+  position: relative;
+  display: inline-block;
+  background: $game-container-background;
+  padding: 15px 25px 20px 25px;
+  font-size: $height;
+  height: $height;
+  line-height: $height + 22px;
+  font-weight: bold;
+  border-radius: $tile-border-radius;
+  color: white;
+  margin-top: 8px;
+  text-align: center;
+
+  &:after {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: $tile-color;
+    content: "Score";
+  }
+}
+
+.gameover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba($tile-color, .5);
+    width: $field-width;
+    height: $field-width / 2 + 25px;
     border-radius: $tile-border-radius;
+
+    padding: ($field-width / 2 - 25px) 0 0 0;
+    text-align: center;
+    font-size: 50px;
+    color: $text-color;
+}
+
+.game-container {
+  margin-top: $game-container-margin-top;
+  position: relative;
+  padding: $grid-spacing;
+  background: $game-container-background;
+  border-radius: $tile-border-radius;
 }
 
 .row {
-    display: flex;
-    margin: 0 0 $grid-spacing 0;
+  display: flex;
+  margin: 0 0 $grid-spacing 0;
 
-    &:last-child{
-        margin: 0;
-    }
+  &:last-child{
+      margin: 0;
+  }
 }
 
 .tile {
-    margin: 0 $grid-spacing 0 0;
-    
-    width: $tile-size;
-    height: $tile-size;
-    line-height: $tile-size;
-    text-align: center;
-    font-size: 50px;
+  margin: 0 $grid-spacing 0 0;
+  
+  width: $tile-size;
+  height: $tile-size;
+  line-height: $tile-size;
+  text-align: center;
+  font-size: 50px;
 
-    background:rgba($tile-color, .35);
-    border-radius: $tile-border-radius;
-    color: $text-color;
+  background:rgba($tile-color, .35);
+  border-radius: $tile-border-radius;
+  color: $text-color;
 
-    &:last-child{
-        margin: 0;
-    }
+  &:last-child{
+      margin: 0;
+  }
 }
 
 $base: 2;

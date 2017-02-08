@@ -10,8 +10,13 @@ import { Tile } from '../classes/tile';
 export class GameComponent implements OnInit {
   grid: Tile[][];
   emptyTiles: Tile[];
+  gameOver: boolean;
+  score: number;
 
-  constructor() { }
+  constructor() {
+    this.gameOver = false;
+    this.score = 0;
+  }
 
   // Listens to user input
   @HostListener('window:keydown', ['$event'])
@@ -37,7 +42,7 @@ export class GameComponent implements OnInit {
     for (let row = 0; row < 4; row++) {
       this.grid[row] = [];
       for (let col = 0; col < 4; col++) {
-        this.grid[row][col] = new Tile(0, col, row);
+        this.grid[row][col] = new Tile();
       }
     }
 
@@ -75,6 +80,37 @@ export class GameComponent implements OnInit {
     }
   }
 
+  isGameOver() {
+    if (this.emptyTiles.length === 0 && !this.isAnyMoveAvailable()) {
+      this.gameOver = true;
+    }
+  }
+
+  isAnyMoveAvailable() {
+    let previous: number;
+    for (let row = 0; row < 4; row++) {
+      previous = -1;
+      for (let col = 0; col < 4; col++) {
+        if (this.grid[row][col].value !== 0 && this.grid[row][col].value === previous) {
+          return true;
+        }
+        previous = this.grid[row][col].value;
+      }
+    }
+
+    for (let col = 0; col < 4; col++) {
+      previous = -1;
+      for (let row = 0; row < 4; row++) {
+        if (this.grid[row][col].value !== 0 && this.grid[row][col].value === previous) {
+          return true;
+        }
+        previous = this.grid[row][col].value;
+      }
+    }
+
+    return false;
+  }
+
   move(keyCode: number) {
     let moved = true;
     let successfulMove = false;
@@ -90,6 +126,7 @@ export class GameComponent implements OnInit {
     if (successfulMove) {
       this.initTile();
     }
+    this.isGameOver();
   }
 
   resetMove() {
@@ -127,7 +164,7 @@ export class GameComponent implements OnInit {
             successfulMove = true;
           } else if (!this.grid[row][col].merged && !this.grid[row][col - 1].merged
               && this.grid[row][col].value === this.grid[row][col - 1].value) {
-            this.grid[row][col].levelUp();
+            this.score = this.grid[row][col].levelUp(this.score);
             this.resetTile(this.grid[row][col - 1]);
             moved = true;
             successfulMove = true;
@@ -152,7 +189,7 @@ export class GameComponent implements OnInit {
             successfulMove = true;
           } else if (!this.grid[row][col].merged && !this.grid[row][col + 1].merged
               && this.grid[row][col].value === this.grid[row][col + 1].value) {
-            this.grid[row][col].levelUp();
+            this.score = this.grid[row][col].levelUp(this.score);
             this.resetTile(this.grid[row][col + 1]);
             moved = true;
             successfulMove = true;
@@ -177,7 +214,7 @@ export class GameComponent implements OnInit {
             successfulMove = true;
           } else if (!this.grid[row][col].merged && !this.grid[row + 1][col].merged
               && this.grid[row][col].value === this.grid[row + 1][col].value) {
-            this.grid[row][col].levelUp();
+            this.score = this.grid[row][col].levelUp(this.score);
             this.resetTile(this.grid[row + 1][col]);
             moved = true;
             successfulMove = true;
@@ -202,7 +239,7 @@ export class GameComponent implements OnInit {
             successfulMove = true;
           } else if (!this.grid[row][col].merged && !this.grid[row - 1][col].merged
               && this.grid[row][col].value === this.grid[row - 1][col].value) {
-            this.grid[row][col].levelUp();
+            this.score = this.grid[row][col].levelUp(this.score);
             this.resetTile(this.grid[row - 1][col]);
             moved = true;
             successfulMove = true;

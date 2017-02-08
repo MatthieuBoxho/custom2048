@@ -1,13 +1,9 @@
 export class Tile {
     public value: number;
-    public xPos: number;
-    public yPos: number;
     public merged: boolean;
 
-    constructor(initValue: number, initX: number, initY: number) {
-        this.value = initValue;
-        this.xPos = initX;
-        this.yPos = initY;
+    constructor() {
+        this.value = 0;
         this.merged = false;
     }
 
@@ -24,9 +20,10 @@ export class Tile {
         this.value = tileToCopy.value;
     }
 
-    levelUp() {
+    levelUp(score: number) {
         this.value *= 2;
         this.merged = true;
+        return score + this.value;
     }
 
 }
