@@ -4,7 +4,11 @@
 
 <div class='game-container'>
   <div class="gameover-overlay" [hidden]="!gameOver">
-    GAME OVER
+    GAME OVER !
+    <br>
+    <a (click)="resetGame()">
+        Try again
+    </a>
   </div>
   <div class="row" *ngFor="let col of grid">
     <div class="tile tile-{{tile.value}}" *ngFor="let tile of col">

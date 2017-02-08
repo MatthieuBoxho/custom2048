@@ -37,13 +37,18 @@
     left: 0;
     background: rgba($tile-color, .5);
     width: $field-width;
-    height: $field-width / 2 + 25px;
+    height: $field-width / 2 + 50px;
     border-radius: $tile-border-radius;
 
-    padding: ($field-width / 2 - 25px) 0 0 0;
+    padding: ($field-width / 2 - 50px) 0 0 0;
     text-align: center;
     font-size: 50px;
     color: $text-color;
+
+    a{
+      @include button;
+      font-size: 25px;
+    }
 }
 
 .game-container {

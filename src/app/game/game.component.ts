@@ -18,7 +18,7 @@ export class GameComponent implements OnInit {
     this.score = 0;
   }
 
-  // Listens to user input
+  /** Listens to user input */
   @HostListener('window:keydown', ['$event'])
   keyboardInput(event: any) {
     if (event.keyCode === 37
@@ -35,7 +35,7 @@ export class GameComponent implements OnInit {
     this.createGrid();
   }
 
-  // We initialize the game grid here
+  /** We initialize the game grid here */
   createGrid() {
     this.grid = [];
 
@@ -51,24 +51,24 @@ export class GameComponent implements OnInit {
     this.initTile();
   }
 
-  // Initialise Tile to 2
+  /** Initialise Tile to 2 */
   initTile() {
     const tile = this.chooseEmptyTile();
     tile.initTile();
   }
 
-  // Reset Tile instance and push it to the emptyTiles array
+  /** Reset Tile instance and push it to the emptyTiles array */
   resetTile(tileToReset: Tile) {
     tileToReset.resetTile();
     this.emptyTiles.push(tileToReset);
   }
 
-  // Picks an empty Tile
+  /** Picks an empty Tile */
   chooseEmptyTile() {
     return this.emptyTiles.splice(Math.floor(Math.random() * this.emptyTiles.length), 1)[0];
   }
 
-  // Gets all the tiles that are empty
+  /** Gets all the tiles that are empty */
   getEmptyTiles() {
     this.emptyTiles = [];
     for (let col = 0; col < 4; col++) {
@@ -80,14 +80,17 @@ export class GameComponent implements OnInit {
     }
   }
 
+  /** Checks if game is Over */
   isGameOver() {
     if (this.emptyTiles.length === 0 && !this.isAnyMoveAvailable()) {
       this.gameOver = true;
     }
   }
 
+  /** Checks if any move is available */
   isAnyMoveAvailable() {
     let previous: number;
+
     for (let row = 0; row < 4; row++) {
       previous = -1;
       for (let col = 0; col < 4; col++) {
@@ -111,6 +114,14 @@ export class GameComponent implements OnInit {
     return false;
   }
 
+  /** Restarts the game */
+  resetGame() {
+    this.createGrid();
+    this.score = 0;
+    this.gameOver = false;
+  }
+
+  /** Calls the direction specific move until no tile has been moved */
   move(keyCode: number) {
     let moved = true;
     let successfulMove = false;
